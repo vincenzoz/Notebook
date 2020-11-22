@@ -1,52 +1,22 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack')
 
-module.exports = {
-  watch: true,
+module.exports = env => {
+  console.log('environment: ', env);
 
-  mode: 'development',
-  devServer: {
-    historyApiFallback: true,
-    contentBase: path.resolve(__dirname, './dist'),
-    watchContentBase: true,
-    open: true,
-    compress: true,
-    hot: true,
-    port: 8080,
-  },
+  var BUILD_DIR = path.resolve(__dirname, './dist');
+  var APP_DIR = path.resolve(__dirname, './src/client/App.tsx');
+  var SERVER_DIR = path.resolve(__dirname, './src/server/server.js')
 
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
+  const configDirs = {
+    BUILD_DIR: BUILD_DIR,
+    APP_DIR: APP_DIR,
+    SERVER_DIR: SERVER_DIR,
+  }
 
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
-
-  entry: {
-    main: path.resolve(__dirname, './src/App.tsx'),
-  },
-
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].bundle.js',
-  },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/index.html'),
-      filename: 'index.html',
-    }),
-    new CleanWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-
+  if (env.dev || env.prod) {
+    const config = env.dev ? 'dev' : 'prod'
+      return require('./config/' + config + '.js')(configDirs)
+  } else {
+      console.log("Invalid parameter. Use 'dev' or 'prod'")
+  }
 }
