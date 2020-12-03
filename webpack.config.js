@@ -3,14 +3,19 @@ const path = require('path')
 module.exports = env => {
   console.log('environment: ', env);
 
-  var BUILD_DIR = path.resolve(__dirname, './dist');
-  var APP_DIR = path.resolve(__dirname, './src/client/App.tsx');
-  var SERVER_DIR = path.resolve(__dirname, './src/server/server.js')
+  const BUILD_DIR = path.resolve(__dirname, './dist');
+  const APP_DIR = path.resolve(__dirname, './src/client/App.tsx');
+  const SERVER_DIR = path.resolve(__dirname, './src/server/server.js')
+  const HTML_TEMPLATE = path.resolve(__dirname, './src/client/index.html')
+  const SERVER_FOLDER = path.resolve(__dirname, './src/server')
 
   const configDirs = {
     BUILD_DIR: BUILD_DIR,
     APP_DIR: APP_DIR,
     SERVER_DIR: SERVER_DIR,
+    HTML_TEMPLATE: HTML_TEMPLATE,
+    SERVER_FOLDER: SERVER_FOLDER
+
   }
 
   if (env.dev || env.prod) {

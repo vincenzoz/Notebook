@@ -1,8 +1,7 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-const HTML_FILE = path.resolve(__dirname, './../src/client/index.html')
 
 function buildConfig(configDirs) {
 
@@ -24,12 +23,8 @@ function buildConfig(configDirs) {
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
     },
-  //   optimization: {
-  //     minimize: false
-  // },
     target:'node',
     entry: {
-      server: configDirs.SERVER_DIR,
       app: configDirs.APP_DIR,
     },
   
@@ -38,9 +33,13 @@ function buildConfig(configDirs) {
       filename: '[name].bundle.js',
     },
     plugins: [
+      new HtmlWebpackPlugin({
+        template: configDirs.HTML_TEMPLATE,
+        filename: 'index.html',
+      }),
       new CopyPlugin({
         patterns: [
-          { from: HTML_FILE, to: "." },
+          { from: configDirs.SERVER_FOLDER, to: "./server" },
         ],
       }),
       new CleanWebpackPlugin(),

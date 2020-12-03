@@ -1,23 +1,11 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const webpack = require('webpack')
-
-const HTML_TEMPLATE = path.resolve(__dirname, './../src/client/index.html')
+const CopyPlugin = require("copy-webpack-plugin");
 
 function buildConfig(configDirs) {
   return {
     watch: true,
-    devServer: {
-      historyApiFallback: true,
-      contentBase: configDirs.BUILD_DIR,
-      watchContentBase: true,
-      open: true,
-      compress: true,
-      hot: true,
-      port: 8080,
-    },
-  
+    devtool: 'eval-source-map',
     module: {
       rules: [
         {
@@ -31,27 +19,40 @@ function buildConfig(configDirs) {
         }
       ],
     },
-  
+    optimization: {
+      // splitChunks: {
+      //   cacheGroups: {
+      //     commons: {
+      //       test: /[\\/]node_modules[\\/]/,
+      //       name: 'vendors',
+      //       chunks: 'all'
+      //     }
+      //   }
+      // },
+      minimize: true
+    },
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
     },
-  
     entry: {
       app: configDirs.APP_DIR,
     },
   
     output: {
       path: configDirs.BUILD_DIR,
-      filename: '[name].bundle.js',
+      filename: 'bundle.js',
     },
   
     plugins: [
       new HtmlWebpackPlugin({
-        template: HTML_TEMPLATE,
+        template: configDirs.HTML_TEMPLATE,
         filename: 'index.html',
       }),
-      new CleanWebpackPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
+      new CopyPlugin({
+        patterns: [
+          { from: configDirs.SERVER_FOLDER, to: "./server" },
+        ],
+      }),
     ],
   
   }

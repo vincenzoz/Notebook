@@ -1,26 +1,45 @@
+import axios from 'axios';
 import * as React from 'react';
+import { Component } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+// import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import './style.css'
 
-export default class Notebook extends React.Component {
+
+
+class Notebook extends Component {
   
-  render () {
+  constructor(props: any) {
+    super(props);
+    // this.handleClick = this.handleClick.bind(this);
+  }
+  
+    handleClick() {
+      console.log('Clicked')
+      // axios.get('http://localhost:' + port + '/check').then(resp => console.log(resp.data))
+      axios.get('/check').then(resp => console.log(resp.data))
+   }
+
+   render () {
     return (
       <div>
         <div id="inlined">
-        <div id="child1" className="container">
-          <div className="row">
-          <InputGroup className="mb-3 col-sm-3 ">
-            <InputGroup.Prepend>
-              <Button variant="outline-secondary">Button</Button>
-            </InputGroup.Prepend>
-            <FormControl aria-describedby="basic-addon2" />
-          </InputGroup>
+          <div className="container">
+            <div className="row">
+            <InputGroup className="mb-3 col-sm-3 ">
+              <InputGroup.Prepend>
+                <Button variant="outline-secondary" onClick={this.handleClick}>Button</Button>
+              </InputGroup.Prepend>
+              <FormControl aria-describedby="basic-addon2" />
+            </InputGroup>
+            </div>
           </div>
-        </div>
-        </div>
+         </div>
+ 
       </div>
-      
     );
   }
 }
+
+
+export default Notebook
