@@ -8,6 +8,10 @@ npm i -D @types/react @types/react-dom
 npm i -D webpack webpack-cli webpack-dev-server html-webpack-plugin clean-webpack-plugin copy-webpack-plugin
 npm i -D ts-loader
 npm i -D typescript
+npm i -D css-loader
+npm i -D style-loader
+npm install react-bootstrap bootstrap
+npm install jquery popper.js
 ```
 
 ## Heroku

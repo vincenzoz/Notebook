@@ -19,7 +19,12 @@
   },
   "homepage": "https://github.com/vincenzoz/Notebook#readme",
   "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "mongodb": "^3.6.3",
+    "popper.js": "^1.16.1",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
@@ -27,7 +32,9 @@
     "@types/react-dom": "^16.9.9",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.3.2",
+    "css-loader": "^5.0.1",
     "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.5",
     "webpack": "^5.8.0",
