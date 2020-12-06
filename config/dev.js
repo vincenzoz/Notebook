@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin");
+const Dotenv = require('dotenv-webpack');
 
 function buildConfig(configDirs) {
   return {
@@ -53,8 +54,11 @@ function buildConfig(configDirs) {
           { from: configDirs.SERVER_FOLDER, to: "./server" },
         ],
       }),
+      new Dotenv({
+        path: 'dev.env',
+      }),
     ],
-  
+    
   }
 }
 

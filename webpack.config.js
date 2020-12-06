@@ -6,7 +6,7 @@ module.exports = env => {
   const BUILD_DIR = path.resolve(__dirname, './dist');
   const APP_DIR = path.resolve(__dirname, './src/client/App.tsx');
   const SERVER_DIR = path.resolve(__dirname, './src/server/server.js')
-  const HTML_TEMPLATE = path.resolve(__dirname, './src/client/index.html')
+  const HTML_TEMPLATE = path.resolve(__dirname, './src/client/public/index.html')
   const SERVER_FOLDER = path.resolve(__dirname, './src/server')
 
   const configDirs = {

@@ -30,7 +30,7 @@ function buildConfig(configDirs) {
   
     output: {
       path: path.resolve(__dirname, './../dist'),
-      filename: '[name].bundle.js',
+      filename: 'bundle.js',
     },
     plugins: [
       new HtmlWebpackPlugin({
