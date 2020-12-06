@@ -1,3 +1,5 @@
-const getServerUrl = () => process.env.SERVER_URL
+declare var SERVER_URL: string;
+
+const getServerUrl = () => SERVER_URL
 
 export default getServerUrl

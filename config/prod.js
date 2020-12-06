@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+var webpack = require('webpack');
 
 function buildConfig(configDirs) {
 
@@ -41,6 +42,10 @@ function buildConfig(configDirs) {
         patterns: [
           { from: configDirs.SERVER_FOLDER, to: "./server" },
         ],
+      }),
+      new webpack.DefinePlugin({
+        ENV: JSON.stringify("prod"),
+        SERVER_URL: JSON.stringify(""),
       }),
       new CleanWebpackPlugin(),
     ],
