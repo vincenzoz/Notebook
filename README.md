@@ -2,28 +2,26 @@
 
 ## Quick start
 
-```text
-npm install
-npm run build:dev
-npm run start:dev
-```
-
-## App running at url
+The quickest way to run the app on locally is to performs the following steps:
 
 ```text
-http://localhost:8080/
+npm install             Download the project dependencies
+
+Open the terminal
+npm run start:dev       Create the dev build on /dist folder and watch for changes
+
+Open another terminal
+cd dist
+live-server             Serve the static files at http://localhost:8080
+
+Open another terminal
+cd dist
+node server/server.js   Start the server
 ```
 
-## Webpack
+### Deploy on prod
 
-Webpack configuration is splitted for 'dev' and 'prod'. The two different files are on /config folder
+The app is hosted on heroku cloud platform, in order to deploy it is necessary to create a build for prod running the command **`npm run build:prod`** . The command will generate the build on /dist folder.
+Once the build is created we can deploy the project on heroku. To do this we have to run **`git push heroku main`**. Once the app has been deployed, we can access it at the url <https://notebook-online.herokuapp.com>
 
-The prod configuration generate the client and server boundles and simply copy the index.html static file from 'src' to 'dist' folder.
-This step is necessary to avoid the server part to be included on the html
-
-```html
-<body>
-    <div id="root"></div>
-    <script src="app.bundle.js"></script>
-</body>
-```
+Other heroku convenent commands are listed on [commands.md](commands.md) file
