@@ -13,6 +13,9 @@ npm i -D css-loader
 npm i -D style-loader
 npm install react-bootstrap bootstrap
 npm install jquery popper.js
+npm i @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome
+npm i @fortawesome/free-regular-svg-icons
+npm i @fortawesome/free-solid-svg-icons
 ```
 
 ## Heroku

@@ -1,5 +1,17 @@
   
-  #inlined {
-    background-color: rgba(62, 235, 99, 0.521);
+  body {
+    background-color: rgba(235, 232, 62, 0.658);
   }
 
+  .btn-circle.btn-xl {
+    width: 40px;
+    height: 40px;
+    padding: 4px 10px;
+    border-radius: 35px;
+    font-size: 22px;
+    line-height: 1.33;
+}
+
+.note-item {
+  color: #28a745;
+}
