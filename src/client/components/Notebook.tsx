@@ -33,7 +33,7 @@ const Notebook = () =>{
           </InputGroup>
         </div>
         <div className="d-inline">
-          <button className="btn btn-success btn-circle btn-xl" onClick={() => noteService.addNote()}>
+          <button className="btn btn-success btn-circle btn-xl" onClick={() => noteService.addNote(noteListUpdated)}>
             <FontAwesomeIcon icon={['far', 'save']} />
           </button>
         </div>

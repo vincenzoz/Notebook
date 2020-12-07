@@ -1,16 +1,12 @@
 const MongoClient = require('mongodb').MongoClient;
-
 const uri = process.env.MONGO_DB_URL
 
-async function connect() {
-    console.log('connect() ...')
-    const client = new MongoClient(uri, { useNewUrlParser: true });
-
-    client.connect(err => {
-            const collection = client.db("test").collection("students");
-            collection.insertOne({name: 'hello world'})
-            client.close();
-        });
+async function insertNote(noteRequest) {
+  const client = new MongoClient(uri, {useUnifiedTopology: true});
+  await client.connect();
+  const collection = client.db('notebook').collection('notes');
+  await collection.insertOne(noteRequest);
+  client.close();
 }
 
-module.exports = { connect }
+module.exports = { insertNote }

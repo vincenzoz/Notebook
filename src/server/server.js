@@ -1,32 +1,35 @@
 
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors')
+const db = require('./database')
+
 const app = express()
-var path = require('path');
-const db = require('./database.js')
+app.use(express.static('dist'))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors())
 
 const port = process.env.PORT || 5000
-
-app.use(express.static('dist'))
-
 app.listen(port, () => {
   console.log(`Running on port: ${port}`)
 })
 
 
+const path = require('path');
 app.get('/notebook', (_req, res) => {
   console.log('/notebook')
   res.sendFile(path.join(__dirname, './../index.html'));
 });
-
 
 app.get('/check', function (req, res) {
   console.log('/check')
   res.send('The server is up..')
 })
 
-app.get('/add', function (req, res) {
-  console.log('/add')
-  db.connect()
+app.post('/add', function (req, res) {
+  const body = req.body
+  console.log('/add', req.body)
+  db.insertNote(body)
+  res.sendStatus(200)
 })
-
-// console.log("get value of", process.env.test)
