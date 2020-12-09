@@ -1,24 +1,54 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
+import { Notes } from '../../shared/models/Notes';
+import { User } from '../../shared/models/User';
 import NoteService from '../services/NoteService';
+import getMockedUser from '../services/UserService';
 
+const username = getMockedUser()['username']
+let initNoteList :string[] = []
 
 const Notebook = () =>{
-  const noteService = new NoteService()
-  
-  const initNoteList :string[] = []
-  const [noteListUpdated, updateNoteList] = React.useState(initNoteList);
+  const [noteListUpdated, updateNoteList] = React.useState([]);
   const [note, setNote] = useState("");
+
+  useEffect(()=> {
+    NoteService.retrieveNotesByUsername(username).then(res => {
+      initNoteList = res.notes
+      updateNoteList((initNoteList != undefined) ? initNoteList : [])
+    })
+  }, [])
 
   function addNote() {
     noteListUpdated.push(note)
     updateNoteList(noteListUpdated)
     setNote('')
  }
-  
-  return (<div>
+
+ function storeNotes() {
+    const user: User = getMockedUser()
+    const saveNoteRequest: Notes = {username: user.username, notes: noteListUpdated}
+    NoteService.saveNotes(saveNoteRequest)
+ }
+
+ function showNoteList() {
+   if (noteListUpdated != undefined) {
+     return (
+        <ul>
+          {
+            noteListUpdated.map((note) =>
+              <li className='note-item' key={note}> {note}</li>
+            )
+          }
+      </ul>
+    )
+   }
+ }
+
+  return (
+  <div>
     <div>
       <div className="container">
         <div className="row mt-1">
@@ -33,18 +63,14 @@ const Notebook = () =>{
           </InputGroup>
         </div>
         <div className="d-inline">
-          <button className="btn btn-success btn-circle btn-xl" onClick={() => noteService.addNote(noteListUpdated)}>
+          <button className="btn btn-success btn-circle btn-xl" onClick={storeNotes}>
             <FontAwesomeIcon icon={['far', 'save']} />
           </button>
         </div>
         </div>
       </div>
       <div>
-        <ul>
-          {noteListUpdated.map((note) => {
-            return <li className='note-item' key={note}> {note}</li>
-          }) }
-        </ul>
+        {showNoteList()}
       </div>
      </div>
 

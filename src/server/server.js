@@ -33,3 +33,11 @@ app.post('/add', function (req, res) {
   db.insertNote(body)
   res.sendStatus(200)
 })
+
+app.get('/getNotesByUsername', async function (req, res) {
+  console.log('/getNotesByUsername')
+  const username = req.query.username
+  const response = await db.retrieveNotesByUsername(username)
+  console.log("--> ",response)
+  res.send(response)
+})
