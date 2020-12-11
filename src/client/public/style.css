@@ -14,4 +14,9 @@
 
 .note-item {
   color: #28a745;
+  cursor: pointer;
+}
+
+.note-item.strikethrough {
+  text-decoration: line-through
 }

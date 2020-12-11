@@ -1,6 +1,6 @@
-import { User } from "./User";
+import { Item } from "./Item";
 
 export interface Notes {
     username: string,
-    notes: string[]
+    notes: Item[]
 }

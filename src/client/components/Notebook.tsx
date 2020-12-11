@@ -2,17 +2,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
+import { Item } from '../../shared/models/Item';
 import { Notes } from '../../shared/models/Notes';
 import { User } from '../../shared/models/User';
 import NoteService from '../services/NoteService';
 import getMockedUser from '../services/UserService';
+import NoteList from './NoteList'
 
 const username = getMockedUser()['username']
-let initNoteList :string[] = []
+let initNoteList :Item[] = []
 
 const Notebook = () =>{
-  const [noteListUpdated, updateNoteList] = React.useState([]);
-  const [note, setNote] = useState("");
+  const [noteListUpdated, updateNoteList] = React.useState<Item[]>([]);
+  const [note, setNote] = useState<Item>({description: '', isStrikethrough: false});
 
   useEffect(()=> {
     NoteService.retrieveNotesByUsername(username).then(res => {
@@ -24,7 +26,7 @@ const Notebook = () =>{
   function addNote() {
     noteListUpdated.push(note)
     updateNoteList(noteListUpdated)
-    setNote('')
+    setNote({description: '', isStrikethrough: false})
  }
 
  function storeNotes() {
@@ -33,21 +35,7 @@ const Notebook = () =>{
     NoteService.saveNotes(saveNoteRequest)
  }
 
- function showNoteList() {
-   if (noteListUpdated != undefined) {
-     return (
-        <ul>
-          {
-            noteListUpdated.map((note) =>
-              <li className='note-item' key={note}> {note}</li>
-            )
-          }
-      </ul>
-    )
-   }
- }
-
-  return (
+ return (
   <div>
     <div>
       <div className="container">
@@ -59,7 +47,7 @@ const Notebook = () =>{
           </div>
         <div className="d-inline mr-1">
           <InputGroup>
-            <FormControl aria-describedby="basic-addon2" value={note} onChange={(e: React.FormEvent<HTMLInputElement>) => setNote(e.currentTarget.value)}/>
+            <FormControl aria-describedby="basic-addon2" value={note.description} onChange={(e: React.FormEvent<HTMLInputElement>) => setNote({description: e.currentTarget.value})}/>
           </InputGroup>
         </div>
         <div className="d-inline">
@@ -69,11 +57,8 @@ const Notebook = () =>{
         </div>
         </div>
       </div>
-      <div>
-        {showNoteList()}
-      </div>
      </div>
-
+    <NoteList noteListUpdated={noteListUpdated}/>
   </div>)
 }
 export default Notebook
