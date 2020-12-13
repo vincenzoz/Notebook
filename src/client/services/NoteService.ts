@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Notes } from '../../shared/models/Notes';
-import { User } from '../../shared/models/User';
 import getServerUrl from './ProperiesUtils'
-import getMockedUser from './UserService'
 
 const NoteService = {
 
@@ -19,7 +17,17 @@ const NoteService = {
         return axios.get(getServerUrl() + '/getNotesByUsername', queryString).then(
             response => {
                 res = response
-                console.log(res)
+                return response.data
+            }
+        )
+    },
+    
+    async deleteNotesByUsername(username: string) {
+        const queryString = { data: {username: username }}
+        let res;
+        return axios.delete(getServerUrl() + '/deleteNotesByUsername', queryString).then(
+            response => {
+                res = response
                 return response.data
             }
         )

@@ -33,6 +33,12 @@ const Notebook = () =>{
     const user: User = getMockedUser()
     const saveNoteRequest: Notes = {username: user.username, notes: noteListUpdated}
     NoteService.saveNotes(saveNoteRequest)
+ } 
+ 
+ function deleteNotes() {
+  NoteService.deleteNotesByUsername(username).then(res => {
+    updateNoteList([])
+  })
  }
 
  return (
@@ -53,6 +59,11 @@ const Notebook = () =>{
         <div className="d-inline">
           <button className="btn btn-success btn-circle btn-xl" onClick={storeNotes}>
             <FontAwesomeIcon icon={['far', 'save']} />
+          </button>
+        </div>
+        <div className="d-inline">
+          <button className="btn btn-success btn-circle btn-xl" onClick={deleteNotes}>
+            <FontAwesomeIcon icon={['far', 'trash-alt']} />
           </button>
         </div>
         </div>

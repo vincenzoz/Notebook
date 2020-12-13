@@ -41,3 +41,10 @@ app.get('/getNotesByUsername', async function (req, res) {
   console.log("--> ",response)
   res.send(response)
 })
+
+app.delete('/deleteNotesByUsername', async function (req, res) {
+  const username = req.body.username
+  console.log('/deleteNotesByUsername', username)
+  const dbResponse = await db.deleteNotesByUsername(username)
+  res.json(dbResponse)
+})

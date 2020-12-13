@@ -16,12 +16,26 @@ const uri = process.env.MONGO_DB_URL
     const client = new MongoClient(uri, {useUnifiedTopology: true});
     await client.connect()
     const notesCollection = client.db('notebook').collection('notes');
-    return await notesCollection.findOne({username: username}).then((result)=> {
+    return await notesCollection.findOne({username: username})
+      .then((result)=> {
+        client.close()
+        return result;
+    }).catch((error)=> {
+      console.error(error)
+      client.close()});
+  }
+  
+  async function deleteNotesByUsername(username) {
+    const client = new MongoClient(uri, {useUnifiedTopology: true});
+    await client.connect()
+    const notesCollection = client.db('notebook').collection('notes');
+    return await notesCollection.deleteOne({username: username})
+    .then((result)=> {
       client.close()
-      return result;
+      return result.deletedCount;
     }).catch((error)=> {
       console.error(error)
       client.close()});
   }
 
-module.exports = { insertNote, retrieveNotesByUsername }
+module.exports = { insertNote, retrieveNotesByUsername, deleteNotesByUsername }
