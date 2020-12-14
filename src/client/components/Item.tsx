@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { Item } from '../../shared/models/Item';
 
@@ -18,7 +19,8 @@ const ItemComponent = ({item}: ItemComponentProps) => {
 
     return (
         <div>
-            <div>
+            <div className='item-row'>
+                <FontAwesomeIcon className='item-icon' icon={['fas', 'bullseye']} />
                 <span className={itemClass} onClick={() => strikethrough(item)}>{item.description}</span>
             </div>
         </div>
