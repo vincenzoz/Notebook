@@ -5,9 +5,10 @@ import { FormControl, InputGroup } from 'react-bootstrap';
 import { Item } from '../../shared/models/Item';
 import { Notes } from '../../shared/models/Notes';
 import { User } from '../../shared/models/User';
-import NoteService from '../services/NoteService';
+import NoteService, { DeleteCount } from '../services/NoteService';
 import getMockedUser from '../services/UserService';
 import NoteList from './NoteList'
+import alert, { alertConfig } from './../utility/alert'
 
 const username = getMockedUser()['username']
 let initNoteList :Item[] = []
@@ -30,15 +31,25 @@ const Notebook = () =>{
  }
 
  function storeNotes() {
-    const user: User = getMockedUser()
-    const saveNoteRequest: Notes = {username: user.username, notes: noteListUpdated}
-    NoteService.saveNotes(saveNoteRequest)
+    if (noteListUpdated.length > 0) {
+      const user: User = getMockedUser()
+      const saveNoteRequest: Notes = {username: user.username, notes: noteListUpdated}
+      NoteService.saveNotes(saveNoteRequest)
+    } else {
+      alert.showInfoAlert(alertConfig.saveNoteInfo)
+    }
+    
  } 
  
  function deleteNotes() {
-  NoteService.deleteNotesByUsername(username).then(res => {
-    updateNoteList([])
-  })
+  if (noteListUpdated.length > 0) {
+    NoteService.deleteNotesByUsername(username).then(res => {
+      if (res.deleteCount === DeleteCount.ONE)
+        updateNoteList([])
+    })
+  } else {
+    alert.showInfoAlert(alertConfig.deleteNoteInfo)
+  }
  }
 
  return (
