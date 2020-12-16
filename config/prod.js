@@ -23,6 +23,7 @@ function buildConfig(configDirs) {
   
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
+      mainFields: ['browser', 'module', 'main']
     },
     target:'node',
     entry: {
