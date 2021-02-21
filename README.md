@@ -2,13 +2,17 @@
 
 ## Quick start
 
-The quickest way to run the app on locally is to performs the following steps:
+Note: you need to configure a mongdb locally (e.g. docker container) or remotely (e.g mongo ATLAS)
+
+The quickest way to run the app locally is to performs the following steps:
+
+Set the MONGO_DB_URL environment variable on your system pointing to the configured mongodb
 
 ```text
 npm install             Download the project dependencies
 
 Open the terminal
-npm run start:dev       Create the dev build on /dist folder and watch for changes
+npm run build:dev       Create the dev build on /dist folder and watch for changes
 
 Open another terminal
 cd dist
