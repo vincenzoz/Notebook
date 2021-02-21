@@ -33,3 +33,8 @@
 .note-item.strikethrough {
   text-decoration: line-through
 }
+
+.container {
+  position:fixed;
+  bottom: 10px;
+}

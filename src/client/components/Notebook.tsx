@@ -58,16 +58,6 @@ const Notebook = () =>{
       <div className="container">
         <div className="row mt-1">
         <div className="d-inline mr-1">
-          <button onClick={addNote} className="btn btn-primary btn-circle btn-xl">
-            <FontAwesomeIcon icon={['fas', 'plus']} />
-          </button>
-          </div>
-        <div className="d-inline mr-1">
-          <InputGroup>
-            <FormControl aria-describedby="basic-addon2" value={note.description} onChange={(e: React.FormEvent<HTMLInputElement>) => setNote({description: e.currentTarget.value})}/>
-          </InputGroup>
-        </div>
-        <div className="d-inline mr-1">
           <button className="btn btn-success btn-success btn-circle btn-xl" onClick={storeNotes}>
             <FontAwesomeIcon icon={['far', 'save']} />
           </button>
@@ -75,6 +65,16 @@ const Notebook = () =>{
         <div className="d-inline">
           <button className="btn btn-success btn-danger btn-circle btn-xl" onClick={deleteNotes}>
             <FontAwesomeIcon icon={['far', 'trash-alt']} />
+          </button>
+        </div>
+        <div className="d-inline mr-1">
+          <InputGroup>
+            <FormControl aria-describedby="basic-addon2" value={note.description} onChange={(e: React.FormEvent<HTMLInputElement>) => setNote({description: e.currentTarget.value})}/>
+          </InputGroup>
+        </div>
+        <div className="d-inline mr-1">
+          <button onClick={addNote} className="btn btn-primary btn-circle btn-xl">
+            <FontAwesomeIcon icon={['fas', 'plus']} />
           </button>
         </div>
         </div>
