@@ -1,32 +1,27 @@
 import * as React from 'react';
 import { Item } from '../../shared/models/Item';
+import { NoteContext } from './context/NoteContext';
 import ItemComponent from './Item';
 
-type NoteListProps = {
-    noteListUpdated: Item[]
-}
+const NoteList = () => {
 
-const NoteList = ({noteListUpdated}: NoteListProps) => {
-
-    function showNoteList() {
-        if (noteListUpdated != undefined) {
-          return (
-              <div>
-                {
-                    noteListUpdated.map((item: Item) =>
-                    <ItemComponent item={item} key={item.description}></ItemComponent>
-                    )
-                }
-              </div>
-            )
-        }
-      }
-
-    return (
-        <div>
-           {showNoteList()}
-        </div>
+  return (
+    <NoteContext.Consumer>
+      {
+        context => (
+          <div>
+            <div>
+              {
+                context.noteList.map((item: Item) =>
+                  <ItemComponent item={item} key={item.description}></ItemComponent>
+                )
+              }
+            </div>
+          </div>
         )
+      }
+    </ NoteContext.Consumer>
+  );
 }
 
 export default NoteList
