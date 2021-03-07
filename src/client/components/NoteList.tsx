@@ -13,7 +13,7 @@ const NoteList = () => {
             <div>
               {
                 context.noteList.map((item: Item) =>
-                  <ItemComponent item={item} key={item.description}></ItemComponent>
+                  <ItemComponent item={item} key={item.description} id={item.description}></ItemComponent>
                 )
               }
             </div>

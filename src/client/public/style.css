@@ -1,6 +1,7 @@
   
   body {
     background-color: #FFDD99;
+    padding-top: 10px;
   }
 
   @media screen
@@ -56,12 +57,14 @@
 .item-row {
   margin-left: 10px;
   color: #c35500;
+  height: 36px;
+  padding-left: 10px;
 }
 
 .note-item {
   margin-left: 8px;
   font-family: monospace;
-  font-size: 20px;
+  font-size: 25px;
   cursor: pointer;
 }
 
@@ -70,7 +73,20 @@
   margin-bottom: 2px;
 }
  
-
 .note-item.strikethrough {
   text-decoration: line-through
+}
+
+.noselect {
+  user-select: none;
+}
+
+.slider {
+  opacity: 1;
+}
+
+.touched {
+  border-radius: 10px;
+  background-color: rgb(255 190 44 / 83%);
+  font-weight: bold;
 }
