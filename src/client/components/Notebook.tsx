@@ -1,16 +1,13 @@
-import * as React from 'react';
-import NoteController from './NoteController';
-import NoteProvider from './context/NoteContext';
-import NoteList from './NoteList';
+import * as React from 'react'
+import NoteController from './NoteController'
+import NoteProvider from './context/NoteContext'
+import NoteList from './NoteList'
 
-const Notebook = () =>{
+const Notebook = () => (
+  <NoteProvider>
+    <NoteController />
+    <NoteList />
+  </NoteProvider>
+)
 
- return (
-  <div>
-    <NoteProvider>
-      <NoteController />
-      <NoteList />
-    </NoteProvider>
-  </div>)
-}
 export default Notebook

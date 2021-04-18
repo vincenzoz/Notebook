@@ -10,18 +10,17 @@ module.exports = env => {
   const SERVER_FOLDER = path.resolve(__dirname, './src/server')
 
   const configDirs = {
-    BUILD_DIR: BUILD_DIR,
-    APP_DIR: APP_DIR,
-    SERVER_DIR: SERVER_DIR,
-    HTML_TEMPLATE: HTML_TEMPLATE,
-    SERVER_FOLDER: SERVER_FOLDER
+    BUILD_DIR,
+    APP_DIR,
+    SERVER_DIR,
+    HTML_TEMPLATE,
+    SERVER_FOLDER,
 
   }
 
   if (env.dev || env.prod) {
     const config = env.dev ? 'dev' : 'prod'
-      return require('./config/' + config + '.js')(configDirs)
-  } else {
-      console.log("Invalid parameter. Use 'dev' or 'prod'")
+    return require('./config/' + config + '.js')(configDirs)
   }
+  console.log("Invalid parameter. Use 'dev' or 'prod'")
 }

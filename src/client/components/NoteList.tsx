@@ -1,27 +1,28 @@
-import * as React from 'react';
-import { Item } from '../../shared/models/Item';
-import { NoteContext } from './context/NoteContext';
-import ItemComponent from './Item';
+import * as React from 'react'
+import { Item } from '../../shared/models/Item'
+import { NoteContext } from './context/NoteContext'
+import ItemComponent from './Item'
 
-const NoteList = () => {
-
-  return (
-    <NoteContext.Consumer>
-      {
-        context => (
+const NoteList = () => (
+  <NoteContext.Consumer>
+    {
+      (context) => (
+        <div>
           <div>
-            <div>
-              {
-                context.noteList.map((item: Item) =>
-                  <ItemComponent item={item} key={item.description} id={item.description}></ItemComponent>
-                )
+            {
+                context.noteList.map((item: Item) => (
+                  <ItemComponent
+                    item={item}
+                    key={item.description}
+                    id={item.description}
+                  />
+                ))
               }
-            </div>
           </div>
-        )
+        </div>
+      )
       }
-    </ NoteContext.Consumer>
-  );
-}
+  </NoteContext.Consumer>
+)
 
 export default NoteList

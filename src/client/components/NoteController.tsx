@@ -1,24 +1,23 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useState } from "react"
-import React = require("react")
-import { Item } from "../../shared/models/Item"
-import { Notes } from "../../shared/models/Notes"
-import { User } from "../../shared/models/User"
-import getMockedUser from '../services/UserService';
+import * as React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import { Item } from '../../shared/models/Item'
+import { Notes } from '../../shared/models/Notes'
+import { User } from '../../shared/models/User'
+import getMockedUser from '../services/UserService'
 import alert, { alertConfig } from '../utility/alert'
-import NoteService, { DeleteCount } from '../services/NoteService';
-import { NoteContext, NoteContextType } from "./context/NoteContext"
+import NoteService, { DeleteCount } from '../services/NoteService'
+import { NoteContext, NoteContextType } from './context/NoteContext'
 
 const NoteController = () => {
-
-  const EMPTY_NOTE :Item = { description: '', isStrikethrough: false }
+  const EMPTY_NOTE: Item = { description: '', isStrikethrough: false }
   const noteContext: NoteContextType = React.useContext(NoteContext)
-  const [note, setNote] = useState<Item>(EMPTY_NOTE);
-  const typeNoteInput = React.useRef<HTMLInputElement>();
-  const username = getMockedUser()['username']
+  const [note, setNote] = useState<Item>(EMPTY_NOTE)
+  const typeNoteInput = React.useRef<HTMLInputElement>()
+  const { username } = getMockedUser()
 
   function addNote() {
-    let noteListClone: Item[] = [...noteContext.noteList];
+    const noteListClone: Item[] = [...noteContext.noteList]
     noteListClone.push(note)
     noteContext.updateNoteList(noteListClone)
     setNote(EMPTY_NOTE)
@@ -37,9 +36,10 @@ const NoteController = () => {
 
   function deleteNotes() {
     if (noteContext.noteList.length > 0) {
-      NoteService.deleteNotesByUsername(username).then(res => {
-        if (res.deleteCount === DeleteCount.ONE)
+      NoteService.deleteNotesByUsername(username).then((res) => {
+        if (res.deleteCount === DeleteCount.ONE) {
           noteContext.updateNoteList([])
+        }
       })
     } else {
       alert.showInfoAlert(alertConfig.deleteNoteInfo)
@@ -52,11 +52,15 @@ const NoteController = () => {
 
   return (
     <NoteContext.Consumer>
-      {value => (
+      {() => (
         <div>
           <div className="bar-container">
             <div className="bar-elem">
-              <button className="btn btn-success btn-success btn-circle btn-xl" onClick={storeNotes} disabled={isNodeListEmpty()}>
+              <button
+                className="btn btn-success btn-success btn-circle btn-xl"
+                onClick={storeNotes}
+                disabled={isNodeListEmpty()}
+              >
                 <FontAwesomeIcon icon={['far', 'save']} />
               </button>
             </div>
@@ -66,7 +70,13 @@ const NoteController = () => {
               </button>
             </div>
             <div className="bar-elem full">
-              <input ref={typeNoteInput} value={note.description} onChange={(e: React.FormEvent<HTMLInputElement>) => setNote({ description: e.currentTarget.value })} />
+              <input
+                ref={typeNoteInput}
+                value={note.description}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => setNote(
+                  { description: e.currentTarget.value },
+                )}
+              />
             </div>
             <div className="bar-elem">
               <button onClick={addNote} className="btn btn-primary btn-circle btn-xl" disabled={note.description === ''}>

@@ -1,4 +1,4 @@
-declare var SERVER_URL: string;
+declare let SERVER_URL: string
 
 const getServerUrl = () => SERVER_URL
 
