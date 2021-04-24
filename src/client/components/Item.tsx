@@ -40,7 +40,7 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
     handleTouchMove(event, this)
   }
   const touchEnd = function () {
-    handleTouchEnd(this)
+    handleTouchEnd(this, noteContext)
     removeItemFromContext()
   }
 
@@ -61,12 +61,14 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
     setItemClass(item.isStrikethrough ? 'note-item strikethrough' : 'note-item')
   }
   return (
-    <div>
-      <div id={id} className="item-row slider">
-        <FontAwesomeIcon className="item-icon" icon={['fas', 'bullseye']} />
-        <span className={`${itemClass} noselect`} onClick={() => strikethrough(item)}>{item.description}</span>
-      </div>
-    </div>
+    <tr id={id} className="item-row slider">
+      <td className="bullet-point"><FontAwesomeIcon className="item-icon" icon={['fas', 'bullseye']} /></td>
+      <td>
+        <div className={`${itemClass} noselect`} onClick={() => strikethrough(item)}>
+          {item.description}
+        </div>
+      </td>
+    </tr>
   )
 }
 

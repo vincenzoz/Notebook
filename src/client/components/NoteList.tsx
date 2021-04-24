@@ -7,18 +7,20 @@ const NoteList = () => (
   <NoteContext.Consumer>
     {
       (context) => (
-        <div>
-          <div>
-            {
-                context.noteList.map((item: Item) => (
-                  <ItemComponent
-                    item={item}
-                    key={item.description}
-                    id={item.description}
-                  />
-                ))
-              }
-          </div>
+        <div className="item-list-table">
+          <table>
+            <tbody>
+              {
+                  context.noteList.map((item: Item) => (
+                    <ItemComponent
+                      item={item}
+                      key={item.description}
+                      id={item.description}
+                    />
+                  ))
+                }
+            </tbody>
+          </table>
         </div>
       )
       }
