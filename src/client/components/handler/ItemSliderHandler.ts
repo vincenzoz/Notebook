@@ -8,10 +8,20 @@ let sliderStartPosition: number
 let sliderEndPosition: number
 let opacityNextIncrement: number = opacityIncrement
 let currentOpacity: number = INITIAL_OPACITY
+const touchedElements = new Set()
 
 const handleTouchStart = (event: TouchEvent, element: HTMLElement) => {
-  element.classList.add('touched')
+  touchedElements.add(element.id)
+  applyTouchClass(element)
   sliderStartPosition = event.touches[0].pageX
+}
+
+const applyTouchClass = (element: HTMLElement) => {
+  setTimeout(() => {
+    if (touchedElements.has(element.id)) {
+      element.classList.add('touched')
+    }
+  }, 20)
 }
 
 const handleTouchMove = (event: TouchEvent, element: HTMLElement) => {
@@ -28,6 +38,7 @@ const handleTouchMove = (event: TouchEvent, element: HTMLElement) => {
 }
 
 const handleTouchEnd = (element: HTMLElement, noteContext: NoteContextType) => {
+  touchedElements.delete(element.id)
   element.classList.remove('touched')
   element.style.opacity = INITIAL_OPACITY.toString()
   if (currentSliderProgress() > MAX_EXTENSION) {
