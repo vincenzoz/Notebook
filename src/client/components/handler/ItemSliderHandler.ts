@@ -9,11 +9,14 @@ let sliderEndPosition: number
 let opacityNextIncrement: number = opacityIncrement
 let currentOpacity: number = INITIAL_OPACITY
 const touchedElements = new Set()
+let startVerticalPosition: number
+const VERTICAL_SCROLLING_OFFSET: number = 20
 
 const handleTouchStart = (event: TouchEvent, element: HTMLElement) => {
   touchedElements.add(element.id)
   applyTouchClass(element)
   sliderStartPosition = event.touches[0].pageX
+  startVerticalPosition = event.touches[0].pageY
 }
 
 const applyTouchClass = (element: HTMLElement) => {
@@ -21,20 +24,30 @@ const applyTouchClass = (element: HTMLElement) => {
     if (touchedElements.has(element.id)) {
       element.classList.add('touched')
     }
-  }, 20)
+  }, 50)
 }
 
 const handleTouchMove = (event: TouchEvent, element: HTMLElement) => {
-  sliderEndPosition = event.touches[0].pageX
-  if (needOpacityIncrement()) {
-    opacityNextIncrement += opacityIncrement
-    currentOpacity -= OPACITY_DIFFERENCE
-    element.style.opacity = (currentOpacity).toString()
-  } else if (needOpacityDecrement()) {
-    opacityNextIncrement -= opacityIncrement
-    currentOpacity += OPACITY_DIFFERENCE
-    element.style.opacity = (currentOpacity).toString()
+  if (userIsScrolling(event)) {
+    element.classList.remove('touched')
+  } else {
+    sliderEndPosition = event.touches[0].pageX
+    if (needOpacityIncrement()) {
+      opacityNextIncrement += opacityIncrement
+      currentOpacity -= OPACITY_DIFFERENCE
+      element.style.opacity = (currentOpacity).toString()
+    } else if (needOpacityDecrement()) {
+      opacityNextIncrement -= opacityIncrement
+      currentOpacity += OPACITY_DIFFERENCE
+      element.style.opacity = (currentOpacity).toString()
+    }
   }
+}
+
+const userIsScrolling = (event: TouchEvent) => {
+  const currentVerticalPosition = event.touches[0].pageY
+  const verticalDelta = Math.abs(currentVerticalPosition - startVerticalPosition)
+  return verticalDelta > VERTICAL_SCROLLING_OFFSET
 }
 
 const handleTouchEnd = (element: HTMLElement, noteContext: NoteContextType) => {
