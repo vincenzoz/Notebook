@@ -11,10 +11,14 @@
       bottom: 10px;
     }
 
-    .item-list-table {
+    .item-list-container {
       height: 82vh;
       overflow: scroll;
     }
+  }
+
+  .item-list-table {
+    width: 100%;
   }
 
   .bar-container {
@@ -60,10 +64,15 @@
 }
 
 .item-row {
+  width: 100%;
   margin-left: 10px;
   color: #c35500;
   height: 36px;
   padding-left: 10px;
+}
+
+.nostretch {
+  width: 1px;
 }
 
 .bullet-point {

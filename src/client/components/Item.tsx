@@ -62,7 +62,7 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
   }
   return (
     <tr id={id} className="item-row slider">
-      <td className="bullet-point"><FontAwesomeIcon className="item-icon" icon={['fas', 'bullseye']} /></td>
+      <td className="bullet-point nostretch"><FontAwesomeIcon className="item-icon" icon={['fas', 'bullseye']} /></td>
       <td>
         <div className={`${itemClass} noselect`} onClick={() => strikethrough(item)}>
           {item.description}

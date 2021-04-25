@@ -7,8 +7,8 @@ const NoteList = () => (
   <NoteContext.Consumer>
     {
       (context) => (
-        <div className="item-list-table">
-          <table>
+        <div className="item-list-container">
+          <table className="item-list-table">
             <tbody>
               {
                   context.noteList.map((item: Item) => (
