@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { Item } from '../../shared/models/Item'
-import { NoteContext, NoteContextType } from './context/NoteContext'
-import { handleTouchEnd, handleTouchMove, handleTouchStart } from './handler/ItemSliderHandler'
+import { Item } from '../../../shared/models/Item'
+import { NoteContext, NoteContextType } from '../context/NoteContext'
+import { handleTouchEnd, handleTouchMove, handleTouchStart } from '../handler/ItemSliderHandler'
 
 type ItemComponentProps = {
     item: Item

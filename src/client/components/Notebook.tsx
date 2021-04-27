@@ -1,7 +1,7 @@
 import * as React from 'react'
-import NoteController from './NoteController'
+import NoteController from './note/NoteController'
 import NoteProvider from './context/NoteContext'
-import NoteList from './NoteList'
+import NoteList from './note/NoteList'
 
 const Notebook = () => (
   <NoteProvider>

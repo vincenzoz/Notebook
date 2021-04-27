@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { Item } from '../../shared/models/Item'
-import { NoteContext } from './context/NoteContext'
+import { Item } from '../../../shared/models/Item'
+import { NoteContext } from '../context/NoteContext'
 import ItemComponent from './Item'
+import './note.css'
 
 const NoteList = () => (
   <NoteContext.Consumer>

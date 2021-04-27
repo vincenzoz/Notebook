@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import { Item } from '../../shared/models/Item'
-import { Notes } from '../../shared/models/Notes'
-import { User } from '../../shared/models/User'
-import getMockedUser from '../services/UserService'
-import alert, { alertConfig } from '../utility/alert'
-import NoteService, { DeleteCount } from '../services/NoteService'
-import { NoteContext, NoteContextType } from './context/NoteContext'
+import { Item } from '../../../shared/models/Item'
+import { Notes } from '../../../shared/models/Notes'
+import { User } from '../../../shared/models/User'
+import getMockedUser from '../../services/UserService'
+import alert, { alertConfig } from '../../utility/alert'
+import NoteService, { DeleteCount } from '../../services/NoteService'
+import { NoteContext, NoteContextType } from '../context/NoteContext'
 
 const NoteController = () => {
   const EMPTY_NOTE: Item = { description: '', isStrikethrough: false }
