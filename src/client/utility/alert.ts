@@ -74,6 +74,9 @@ export const alertConfig = {
   deleteNoteInfo: {
     title: 'There are no notes to delete',
   },
+  userNotFoundInfo: {
+    title: 'User not Found :/',
+  },
 }
 
 export default {

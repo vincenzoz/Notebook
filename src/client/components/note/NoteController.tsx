@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Item } from '../../../shared/models/Item'
 import { Notes } from '../../../shared/models/Notes'
 import { User } from '../../../shared/models/User'
-import getMockedUser from '../../services/UserService'
+import { getMockUser } from '../../services/UserService'
 import alert, { alertConfig } from '../../utility/alert'
 import NoteService, { DeleteCount } from '../../services/NoteService'
 import { NoteContext, NoteContextType } from '../context/NoteContext'
@@ -14,7 +14,7 @@ const NoteController = () => {
   const noteContext: NoteContextType = React.useContext(NoteContext)
   const [note, setNote] = useState<Item>(EMPTY_NOTE)
   const typeNoteInput = React.useRef<HTMLInputElement>()
-  const { username } = getMockedUser()
+  const { username } = getMockUser()
 
   function addNote() {
     const noteListClone: Item[] = [...noteContext.noteList]
@@ -26,7 +26,7 @@ const NoteController = () => {
 
   function storeNotes() {
     if (noteContext.noteList.length > 0) {
-      const user: User = getMockedUser()
+      const user: User = getMockUser() // TODO replace  with current user
       const saveNoteRequest: Notes = { username: user.username, notes: noteContext.noteList }
       NoteService.saveNotes(saveNoteRequest)
     } else {
@@ -36,10 +36,8 @@ const NoteController = () => {
 
   function deleteNotes() {
     if (noteContext.noteList.length > 0) {
-      NoteService.deleteNotesByUsername(username).then((res) => {
-        if (res.deleteCount === DeleteCount.ONE) {
-          noteContext.updateNoteList([])
-        }
+      NoteService.deleteNotesForUser(username).then(() => {
+        noteContext.updateNoteList([])
       })
     } else {
       alert.showInfoAlert(alertConfig.deleteNoteInfo)

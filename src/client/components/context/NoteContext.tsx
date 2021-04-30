@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
 import * as React from 'react'
 import NoteService from '../../services/NoteService'
-import getMockedUser from '../../services/UserService'
+import { getMockUser } from '../../services/UserService'
 import { Item } from '../../../shared/models/Item'
 
 export const NoteContext = createContext(null)
@@ -14,11 +14,11 @@ export type NoteContextType = {
 const { Provider } = NoteContext
 const NoteProvider = ({ children }: any) => {
   const [noteList, setNoteList] = useState<Item[]>([])
-  const { username } = getMockedUser()
+  const { username } = getMockUser()
   let initNoteList: Item[] = []
 
   useEffect(() => {
-    NoteService.retrieveNotesByUsername(username).then((res) => {
+    NoteService.retrieveNotesForUser(username).then((res) => {
       initNoteList = res.notes
       setNoteList((initNoteList !== undefined) ? initNoteList : [])
     })

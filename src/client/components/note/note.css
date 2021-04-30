@@ -17,7 +17,7 @@
     flex-basis: 100%;
   }
 
-  input {
+  .bar-elem input {
     color: coral;
     border-radius: 15px;
     padding-left: 15px;
@@ -29,7 +29,7 @@
     font-family: monospace;
   }
 
-  input:focus {
+  .bar-elem input:focus {
     padding-left: 15px;
     padding-right: 15px;
     outline: none;

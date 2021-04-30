@@ -4,30 +4,52 @@ const uri = process.env.MONGO_DB_URL
 
 const client = new MongoClient(uri, { useUnifiedTopology: true })
 client.connect()
-const noteCollection = () => client.db('notebook').collection('notes')
 
-async function insertNote(noteRequest) {
-  await noteCollection()
-    .updateOne({ username: noteRequest.username }, { $set: noteRequest }, { upsert: true })
-    .catch((error) => {
-      console.error(error)
-    })
-}
+const userCollection = () => client.db('notebook').collection('users')
 
-async function retrieveNotesByUsername(username) {
-  return noteCollection().findOne({ username })
+async function retrieveUser(loginRequest) {
+  const { username, password } = loginRequest
+  return userCollection().findOne(
+    { username, password },
+  )
     .then((result) => result)
     .catch((error) => {
       console.error(error)
     })
 }
 
-async function deleteNotesByUsername(username) {
-  return noteCollection().deleteOne({ username })
+async function updateNotes(noteRequest) {
+  await userCollection()
+    .updateOne(
+      { username: noteRequest.username },
+      { $set: { notes: noteRequest.notes } },
+      { upsert: true },
+    )
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+async function retrieveNotesForUsername(username) {
+  return userCollection().findOne({ username })
+    .then((result) => result)
+    .catch((error) => {
+      console.error(error)
+    })
+}
+
+async function deleteNotesForUsername(username) {
+  return userCollection()
+    .updateOne(
+      { username },
+      { $set: { notes: [] } },
+    )
     .then((result) => result.deletedCount)
     .catch((error) => {
       console.error(error)
     })
 }
 
-module.exports = { insertNote, retrieveNotesByUsername, deleteNotesByUsername }
+module.exports = {
+  retrieveUser, updateNotes, retrieveNotesForUsername, deleteNotesForUsername 
+}

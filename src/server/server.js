@@ -22,20 +22,25 @@ app.get('/check', (req, res) => {
   res.send('The server is up..')
 })
 
-app.post('/add', (req, res) => {
-  const { body } = req
-  db.insertNote(body)
-  res.sendStatus(200)
-})
-
-app.get('/getNotesByUsername', async (req, res) => {
-  const { username } = req.query
-  const response = await db.retrieveNotesByUsername(username)
+app.post('/login', async (req, res) => {
+  const response = await db.retrieveUser(req.body)
   res.send(response)
 })
 
-app.delete('/deleteNotesByUsername', async (req, res) => {
+app.post('/add', (req, res) => {
+  const { body } = req
+  db.updateNotes(body)
+  res.sendStatus(200)
+})
+
+app.get('/getNotesForUser', async (req, res) => {
+  const { username } = req.query
+  const response = await db.retrieveNotesForUsername(username)
+  res.send(response)
+})
+
+app.put('/deleteNotesForUser', async (req, res) => {
   const { username } = req.body
-  const dbResponse = await db.deleteNotesByUsername(username)
+  const dbResponse = await db.deleteNotesForUsername(username)
   res.json(dbResponse)
 })

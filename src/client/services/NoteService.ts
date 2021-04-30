@@ -1,33 +1,33 @@
 import axios from 'axios'
-import { Notes } from '../../shared/models/Notes'
+import { UpdateNoteRequest } from '../../shared/models/Notes'
 import getServerUrl from './ProperiesUtils'
 import alert, { alertConfig } from '../utility/alert'
 
 const NoteService = {
 
-  saveNotes(notes: Notes) {
+  saveNotes(noteRequest: UpdateNoteRequest) {
     const config = { headers: { 'Access-Control-Allow-Origin': '*' } }
-    axios.post(`${getServerUrl()}/add`, notes, config)
+    axios.post(`${getServerUrl()}/add`, noteRequest, config)
       .then(() => {
         alert.showSuccessAlert(alertConfig.saveNoteSuccess)
       },
       (error) => console.log(error))
   },
 
-  async retrieveNotesByUsername(username: string) {
+  async retrieveNotesForUser(username: string) {
     const queryString = { params: { username } }
-    return axios.get(`${getServerUrl()}/getNotesByUsername`, queryString).then(
+    return axios.get(`${getServerUrl()}/getNotesForUser`, queryString).then(
       (response) => response.data,
     )
   },
 
-  async deleteNotesByUsername(username: string): Promise<DeleteNoteResponse> {
+  async deleteNotesForUser(username: string): Promise<DeleteNoteResponse> {
     return new Promise((resolve) => {
       alert.showConfirmAlert(alertConfig.deleteNoteConfirm)
         .then((result) => {
           if (result.isConfirmed) {
-            const queryString = { data: { username } }
-            axios.delete(`${getServerUrl()}/deleteNotesByUsername`, queryString)
+            const body = { username }
+            axios.put(`${getServerUrl()}/deleteNotesForUser`, body)
               .then((response) => {
                 alert.showSuccessAlert(alertConfig.deleteNoteSuccess)
                 let deleteCount: DeleteCount = DeleteCount.ZERO

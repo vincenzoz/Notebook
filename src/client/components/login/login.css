@@ -1,0 +1,50 @@
+.login-form {
+  width: 20em;
+  padding: 35px;
+  box-shadow: 5px 5px 8px coral;
+  background-color: #fff2b9;
+}
+  
+.login-form input {
+  font-size: 30px;
+  height: 55px;
+  color: coral;
+  background: none;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 0px;
+  border-bottom: 2px solid #ffa800;
+  width: 100%;
+  font-family: monospace;
+}
+
+.login-form input:focus {
+  border-bottom: 2px solid coral;
+}
+
+::placeholder {
+  color: #ffa800
+}
+
+input:focus::placeholder {
+    color: coral
+}
+
+.login-form input:not(:placeholder-shown) {
+  border-bottom: 2px solid coral;
+}
+
+.loginButton {
+  margin: 15px;
+  border: 1px solid;
+  text-align: center;
+  color: #ffa800;
+  background: aliceblue;
+}
+
+.loginButton:hover {
+  color: coral;
+  cursor: pointer;
+}
+
