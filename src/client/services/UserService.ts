@@ -7,13 +7,17 @@ function getMockUser(): User {
     username: 'Jhon',
     email: 'user@mail.com',
     password: '',
+    token: 'bla bla bla',
   }
   return mockedUser
 }
 
-function getUser(loginRequest: UserLoginRequest): Promise<User> {
+async function getUser(loginRequest: UserLoginRequest): Promise<User> {
   return axios.post(`${getServerUrl()}/login`, loginRequest).then(
-    (response) => response.data,
+    (response) => {
+      response.data.token = response.headers.token
+      return response.data
+    },
   )
 }
 

@@ -6,6 +6,7 @@ export interface User {
     password: string
     name?: string
     notes?: Item[]
+    token: string
 }
 
 export interface UserLoginRequest {

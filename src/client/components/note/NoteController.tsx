@@ -1,20 +1,25 @@
 import * as React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { Item } from '../../../shared/models/Item'
 import { Notes } from '../../../shared/models/Notes'
 import { User } from '../../../shared/models/User'
-import { getMockUser } from '../../services/UserService'
 import alert, { alertConfig } from '../../utility/alert'
-import NoteService, { DeleteCount } from '../../services/NoteService'
+import NoteService from '../../services/NoteService'
 import { NoteContext, NoteContextType } from '../context/NoteContext'
+import backToLogin from '../handler/routeHandler'
 
-const NoteController = () => {
+type ControllerProps = {
+  user: User
+}
+
+const NoteController = ({ user } :ControllerProps) => {
   const EMPTY_NOTE: Item = { description: '', isStrikethrough: false }
   const noteContext: NoteContextType = React.useContext(NoteContext)
   const [note, setNote] = useState<Item>(EMPTY_NOTE)
   const typeNoteInput = React.useRef<HTMLInputElement>()
-  const { username } = getMockUser()
+  const history = useHistory()
 
   function addNote() {
     const noteListClone: Item[] = [...noteContext.noteList]
@@ -26,22 +31,26 @@ const NoteController = () => {
 
   function storeNotes() {
     if (noteContext.noteList.length > 0) {
-      const user: User = getMockUser() // TODO replace  with current user
       const saveNoteRequest: Notes = { username: user.username, notes: noteContext.noteList }
       NoteService.saveNotes(saveNoteRequest)
+        .then(() => alert.showSuccessAlert(alertConfig.saveNoteSuccess))
+        .catch(() => backToLogin(history))
     } else {
       alert.showInfoAlert(alertConfig.saveNoteInfo)
     }
   }
 
   function deleteNotes() {
-    if (noteContext.noteList.length > 0) {
-      NoteService.deleteNotesForUser(username).then(() => {
-        noteContext.updateNoteList([])
+    alert.showConfirmAlert(alertConfig.deleteNoteConfirm)
+      .then((result) => {
+        if (result.isConfirmed) {
+          NoteService.deleteNotesForUser(user.username)
+            .then(() => {
+              alert.showSuccessAlert(alertConfig.deleteNoteSuccess)
+              noteContext.updateNoteList([])
+            })
+        }
       })
-    } else {
-      alert.showInfoAlert(alertConfig.deleteNoteInfo)
-    }
   }
 
   function isNodeListEmpty() {
