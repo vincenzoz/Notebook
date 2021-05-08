@@ -16,8 +16,6 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 const secret = process.env.SECRET
-const uri = process.env.MONGO_DB_URL
-console.log(secret, uri)
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {
