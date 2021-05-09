@@ -22,9 +22,13 @@ app.listen(port, () => {
 })
 
 const authenticateToken = function (req, res, next) {
-  if (req.method === 'POST' && req.originalUrl === '/login') {
+  console.log('url: ', req.originalUrl)
+  // TODO: Handle this requests filter differently
+  if ((req.method === 'POST' && req.originalUrl === '/login') || (req.method === 'GET' && req.originalUrl === '/favicon.ico')) {
+    console.log('call next...')
     next()
   } else {
+    console.log('verify token..')
     const authHeader = req.headers.authorization
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) res.sendStatus(401)

@@ -64,7 +64,7 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
   function getItemClass() {
     const currentItem = state.notebook.notes
       .filter((i) => i.description === item.description)
-    return currentItem[0].isSelected ? ' selected' : ''
+    return currentItem[0].isSelected ? 'selected' : ''
   }
   function selectItem(item: Item) {
     dispatch(selectNote(item))

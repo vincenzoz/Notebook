@@ -71,6 +71,10 @@
   cursor: pointer;
 }
 
+.note-item :first-child {
+  width: 1px;
+}
+
 .item-icon {
   font-size: 12px;
   margin-bottom: 2px;
