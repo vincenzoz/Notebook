@@ -1,4 +1,3 @@
-import { NoteContextType } from '../context/NoteContext'
 
 const MAX_EXTENSION = 200
 const INITIAL_OPACITY = 1
@@ -50,13 +49,12 @@ const userIsScrolling = (event: TouchEvent) => {
   return verticalDelta > VERTICAL_SCROLLING_OFFSET
 }
 
-const handleTouchEnd = (element: HTMLElement, noteContext: NoteContextType) => {
+const handleTouchEnd = (element: HTMLElement, updateNoteCallback: (id: string) => void) => {
   touchedElements.delete(element.id)
   element.classList.remove('touched')
   element.style.opacity = INITIAL_OPACITY.toString()
   if (currentSliderProgress() > MAX_EXTENSION) {
-    noteContext.updateNoteList(noteContext.noteList
-      .filter((elem) => elem.description !== element.id))
+    updateNoteCallback(element.id)
   }
   resetCounters()
 }

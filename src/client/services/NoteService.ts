@@ -15,7 +15,8 @@ const NoteService = {
   },
 
   async deleteNotesForUser(username: string): Promise<any> {
-    return axios.put(`${getServerUrl()}/deleteNotesForUser`, username)
+    const body = { username }
+    return axios.put(`${getServerUrl()}/deleteNotesForUser`, body)
   },
 }
 

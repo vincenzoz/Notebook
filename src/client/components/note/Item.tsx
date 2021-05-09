@@ -1,8 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as React from 'react'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Item } from '../../../shared/models/Item'
-import { NoteContext, NoteContextType } from '../context/NoteContext'
+import { selectNote, updateNotes } from '../../store/notebookSlice'
+import { RootState } from '../../store/rootReducer'
+import { useAppDispatch } from '../../store/store'
 import { handleTouchEnd, handleTouchMove, handleTouchStart } from '../handler/ItemSliderHandler'
 
 type ItemComponentProps = {
@@ -11,7 +13,8 @@ type ItemComponentProps = {
 }
 
 const ItemComponent = ({ item, id }: ItemComponentProps) => {
-  const noteContext: NoteContextType = React.useContext(NoteContext)
+  const dispatch = useAppDispatch()
+  const state = useSelector((state: RootState) => state)
 
   useEffect(() => {
     const element = document.getElementById(id)
@@ -39,32 +42,40 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
   const touchMove = function (event: TouchEvent) {
     handleTouchMove(event, this)
   }
+
+  const updateNoteCallback = (currentId: string) => {
+    dispatch(updateNotes(state.notebook.notes
+      .filter((elem) => elem.description !== currentId)))
+  }
   const touchEnd = function () {
-    handleTouchEnd(this, noteContext)
+    handleTouchEnd(this, updateNoteCallback)
     removeItemFromContext()
   }
 
   function removeItemFromContext() {
     const element = document.getElementById(id)
     if (element === null) {
-      let noteListClone: Item[] = [...noteContext.noteList]
+      let noteListClone: Item[] = [...state.notebook.notes]
       noteListClone = noteListClone.filter((elem) => elem.description !== item.description)
-      noteContext.updateNoteList(noteListClone)
+      dispatch(updateNotes(noteListClone))
     }
   }
 
-  const [itemClass, setItemClass] = React.useState(item.isStrikethrough ? 'note-item strikethrough' : 'note-item')
-
-  function strikethrough(item: Item) {
-    // The order is important
-    item.isStrikethrough = !item.isStrikethrough
-    setItemClass(item.isStrikethrough ? 'note-item strikethrough' : 'note-item')
+  function getItemClass() {
+    const currentItem = state.notebook.notes
+      .filter((i) => i.description === item.description)
+    return currentItem[0].isSelected ? ' selected' : ''
+  }
+  function selectItem(item: Item) {
+    dispatch(selectNote(item))
   }
   return (
-    <tr id={id} className="item-row slider">
-      <td className="bullet-point nostretch"><FontAwesomeIcon className="item-icon" icon={['fas', 'bullseye']} /></td>
+    <tr id={id} className={`note-item ${getItemClass()} item-row slider`}>
       <td>
-        <div className={`${itemClass} noselect`} onClick={() => strikethrough(item)}>
+        <span className="bullet-point nostretch">⦿</span>
+      </td>
+      <td>
+        <div className="text-not-selectable" onClick={() => selectItem(item)}>
           {item.description}
         </div>
       </td>

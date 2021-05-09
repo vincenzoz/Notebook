@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 import axios from 'axios'
 import NoteController from './note/NoteController'
-import NoteProvider from './context/NoteContext'
 import NoteList from './note/NoteList'
 import Login from './login/Login'
 import useToken from './useToken'
@@ -35,10 +34,8 @@ const Notebook = () => {
     return (
       <Switch>
         <Route path="/list">
-          <NoteProvider user={user}>
-            <NoteController user={user} />
-            <NoteList />
-          </NoteProvider>
+          <NoteController user={user} />
+          <NoteList user={user} />
         </Route>
       </Switch>
     )

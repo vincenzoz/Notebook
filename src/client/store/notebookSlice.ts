@@ -12,10 +12,19 @@ const notebook = createSlice({
   initialState,
   reducers: {
     updateNotes(state, { payload }: PayloadAction<Item[]>) {
-      state.notes = payload
+      state.notes = (payload) || []
+    },
+    selectNote(state, { payload }: PayloadAction<Item>) {
+      state.notes = state.notes
+        .map(((item) => {
+          if (item.description === payload.description) {
+            item.isSelected = !item.isSelected
+          }
+          return item
+        }))
     },
   },
 })
 
-export const { updateNotes } = notebook.actions
+export const { updateNotes, selectNote } = notebook.actions
 export default notebook.reducer
