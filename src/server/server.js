@@ -53,7 +53,7 @@ app.get('/check', (req, res) => {
 app.post('/login', async (req, res) => {
   const response = await db.retrieveUser(req.body)
   if (response) {
-    const token = jwt.sign({ user: response.username }, secret, { expiresIn: 60 })
+    const token = jwt.sign({ user: response.username }, secret, { expiresIn: 1800 })
     res.header('token', token)
     res.send(response)
   } else {
