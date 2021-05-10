@@ -12,12 +12,9 @@ import backToLogin from '../handler/routeHandler'
 import { updateNotes } from '../../store/notebookSlice'
 import { useAppDispatch } from '../../store/store'
 import { RootState } from '../../store/rootReducer'
+import { logout } from '../../store/authSlice'
 
-type ControllerProps = {
-  user: User
-}
-
-const NoteController = ({ user } :ControllerProps) => {
+const NoteController = () => {
   const EMPTY_NOTE: Item = { description: '', isSelected: false }
   const [note, setNote] = useState<Item>(EMPTY_NOTE)
   const typeNoteInput = React.useRef<HTMLInputElement>()
@@ -37,10 +34,14 @@ const NoteController = ({ user } :ControllerProps) => {
   function storeNotes() {
     const { notes } = state.notebook
     if (notes.length > 0) {
-      const saveNoteRequest: Notes = { username: user.username, notes }
+      const saveNoteRequest: Notes = { username: state.auth.user, notes }
       NoteService.saveNotes(saveNoteRequest)
         .then(() => alert.showSuccessAlert(alertConfig.saveNoteSuccess))
-        .catch(() => backToLogin(history))
+        .catch(() => {
+          alert.showInfoAlert(alertConfig.sessionHasExpired)
+          dispatch(logout())
+          backToLogin(history)
+        })
     } else {
       alert.showInfoAlert(alertConfig.saveNoteInfo)
     }
@@ -50,7 +51,7 @@ const NoteController = ({ user } :ControllerProps) => {
     alert.showConfirmAlert(alertConfig.deleteNoteConfirm)
       .then((result) => {
         if (result.isConfirmed) {
-          NoteService.deleteNotesForUser(user.username)
+          NoteService.deleteNotesForUser(state.auth.user)
             .then(() => {
               alert.showSuccessAlert(alertConfig.deleteNoteSuccess)
               dispatch(updateNotes([]))

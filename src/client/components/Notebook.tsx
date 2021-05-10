@@ -1,31 +1,33 @@
 import * as React from 'react'
-import { useState } from 'react'
 import {
   Switch,
   Route,
   HashRouter,
 } from 'react-router-dom'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
 import NoteController from './note/NoteController'
 import NoteList from './note/NoteList'
 import Login from './login/Login'
-import useToken from './useToken'
-import { User } from '../../shared/models/User'
+import { RootState } from '../store/rootReducer'
+import store from '../store/store'
 
 axios.interceptors.request.use((req) => {
-  const tokenString = sessionStorage.getItem('token')
-  req.headers.authorization = `bearer ${tokenString}`
+  const { auth } = store.getState()
+  if (auth.isAuthenticated) {
+    const tokenString = auth.token
+    req.headers.authorization = `bearer ${tokenString}`
+  }
   return req
 })
 
 const Notebook = () => {
-  const { token, setToken } = useToken()
-  const [user, setUser] = useState<User>()
+  const state = useSelector((state: RootState) => state)
 
   function LoginRender() {
     return (
       <Route path="/">
-        <Login setToken={setToken} setUser={setUser} />
+        <Login />
       </Route>
     )
   }
@@ -34,8 +36,8 @@ const Notebook = () => {
     return (
       <Switch>
         <Route path="/list">
-          <NoteController user={user} />
-          <NoteList user={user} />
+          <NoteController />
+          <NoteList />
         </Route>
       </Switch>
     )
@@ -45,7 +47,7 @@ const Notebook = () => {
     <div>
       <HashRouter>
         {
-        (!token) ? LoginRender() : AppRender()
+        (!state.auth.isAuthenticated) ? LoginRender() : AppRender()
         }
       </HashRouter>
     </div>

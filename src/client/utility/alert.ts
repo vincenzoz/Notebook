@@ -77,6 +77,9 @@ export const alertConfig = {
   userNotFoundInfo: {
     title: 'User not Found :/',
   },
+  sessionHasExpired: {
+    title: 'Session has expired!',
+  },
 }
 
 export default {

@@ -11,20 +11,17 @@ import backToLogin from '../handler/routeHandler'
 import ItemComponent from './Item'
 import './note.css'
 
-type NoteListProps = {
-  user: User
-}
-
-const NoteList = ({ user } : NoteListProps) => {
+const NoteList = () => {
   let initNoteList: Item[] = []
   const history = useHistory()
   const dispatch = useAppDispatch()
   const state = useSelector((state: RootState) => state)
   useEffect(() => {
+    const { user } = state.auth
     if (!user) {
       backToLogin(history)
     }
-    NoteService.retrieveNotesForUser(user.username)
+    NoteService.retrieveNotesForUser(user)
       .then((res) => {
         initNoteList = res.notes
         dispatch(updateNotes(initNoteList))
