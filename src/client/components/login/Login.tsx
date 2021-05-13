@@ -29,7 +29,7 @@ function Login() {
   }
   return (
     <div className="login-form centered">
-      <form className="login-form centered" onSubmit={doLogin}>
+      <form className="login-form centered" onSubmit={(e) => { e.preventDefault(); doLogin() }}>
         <input id="username" placeholder="username" autoComplete="off" onChange={(e: React.FormEvent<HTMLInputElement>) => setUsername(e.currentTarget.value)} />
         <input
           id="password"
