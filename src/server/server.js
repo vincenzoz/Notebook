@@ -1,7 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const path = require('path')
 const jwt = require('jsonwebtoken')
 const db = require('./database')
 
@@ -41,14 +40,6 @@ const authenticateToken = function (req, res, next) {
 }
 
 app.use(authenticateToken)
-
-app.get('/notebook', (_req, res) => {
-  res.sendFile(path.join(__dirname, './../index.html'))
-})
-
-app.get('/check', (req, res) => {
-  res.send('The server is up..')
-})
 
 app.post('/login', async (req, res) => {
   const response = await db.retrieveUser(req.body)
