@@ -70,12 +70,12 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
     dispatch(selectNote(item))
   }
   return (
-    <tr id={id} className={`note-item ${getItemClass()} item-row slider`}>
+    <tr id={id} className={`note-item ${getItemClass()} item-row slider`} onClick={() => selectItem(item)}>
       <td>
         <span className="bullet-point nostretch">⦿</span>
       </td>
       <td>
-        <div className="text-not-selectable" onClick={() => selectItem(item)}>
+        <div className="item-description">
           {item.description}
         </div>
       </td>

@@ -69,6 +69,7 @@
   font-family: monospace;
   font-size: 20px;
   cursor: pointer;
+  user-select: none;
 }
 
 .note-item :first-child {
@@ -85,10 +86,9 @@
   border: 2px solid #ffd951;
 }
 
-.text-not-selectable {
+.item-description {
   display: contents;
   height: 25px;
-  user-select: none;
 }
 
 .slider {
