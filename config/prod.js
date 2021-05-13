@@ -1,52 +1,33 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-var webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
-function buildConfig(configDirs) {
-
+function buildConfig(conf) {
   return {
     module: {
       rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        }
+        conf.loaders.tsLoader,
+        conf.loaders.styleLoader,
       ],
     },
-  
     resolve: {
-      extensions: [".tsx", ".ts", ".js"],
-      mainFields: ['browser', 'module', 'main']
+      extensions: ['.tsx', '.ts', '.js'],
+      mainFields: ['browser', 'module', 'main'],
     },
-    target:'node',
+    target: 'node',
     entry: {
-      app: configDirs.APP_DIR,
+      app: conf.dirs.APP_DIR,
     },
-  
     output: {
       path: path.resolve(__dirname, './../dist'),
       filename: 'bundle.js',
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        template: configDirs.HTML_TEMPLATE,
-        filename: 'index.html',
-      }),
-      new CopyPlugin({
-        patterns: [
-          { from: configDirs.SERVER_FOLDER, to: "./server" },
-        ],
-      }),
+      conf.plugins.htmlPlugin,
+      conf.plugins.copyPlugin,
       new webpack.DefinePlugin({
-        ENV: JSON.stringify("prod"),
-        SERVER_URL: JSON.stringify(""),
+        ENV: JSON.stringify('prod'),
+        SERVER_URL: JSON.stringify(''),
       }),
       new CleanWebpackPlugin(),
     ],

@@ -3,13 +3,12 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Item } from '../../../shared/models/Item'
-import { User } from '../../../shared/models/User'
 import NoteService from '../../services/NoteService'
 import { updateNotes } from '../../store/notebookSlice'
 import { RootState, useAppDispatch } from '../../store/store'
 import backToLogin from '../handler/routeHandler'
 import ItemComponent from './Item'
-import './note.css'
+import './note.scss'
 
 const NoteList = () => {
   let initNoteList: Item[] = []

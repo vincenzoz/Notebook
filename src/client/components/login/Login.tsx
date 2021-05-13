@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { UserLoginRequest } from '../../../shared/models/User'
 import { getUser } from '../../services/UserService'
 import alert, { alertConfig } from '../../utility/alert'
-import './login.css'
+import './login.scss'
 import { useAppDispatch } from '../../store/store'
 import { login } from '../../store/authSlice'
 

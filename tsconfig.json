@@ -5,7 +5,10 @@
       "removeComments": true,
       "preserveConstEnums": true,
       "sourceMap": true,
-      "target": "es6",
+      "target": "esnext",
       "jsx": "react"
     },
-    }
+    "exclude": [
+      "dist"
+  ]
+}
