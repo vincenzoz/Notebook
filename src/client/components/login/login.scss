@@ -3,55 +3,57 @@
   width: 20em;
   padding: 25px 35px;
   box-shadow: 5px 5px 8px coral;
+  border-radius: 4px;
   background-color: #fff2b9;
+
+  input {
+    font-size: 30px;
+    height: 55px;
+    color: coral;
+    background: none;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0px;
+    border-bottom: 2px solid #ffa800;
+    width: 100%;
+    font-family: monospace;
+    
+    &:focus {
+      border-bottom: 2px solid coral;
+  
+      &::placeholder {
+        color: coral
+    }
+  }
+
+    &:not(:placeholder-shown) {
+      border-bottom: 2px solid coral;
+    }
+  }
+  ::placeholder {
+    color: #ffa800
+  }
 }
   
-.login-form input {
-  font-size: 30px;
-  height: 55px;
-  color: coral;
-  background: none;
-  outline: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  border: 0px;
-  border-bottom: 2px solid #ffa800;
-  width: 100%;
-  font-family: monospace;
-}
-
-.login-form input:focus {
-  border-bottom: 2px solid coral;
-}
-
-.login-form ::placeholder {
-  color: #ffa800
-}
-
-.login-form input:focus::placeholder {
-    color: coral
-}
-
-.login-form input:not(:placeholder-shown) {
-  border-bottom: 2px solid coral;
-}
-
 .loginButton {
-  font-size: 20px;
-  width: 130px;
+  font-size: 18px;
+  width: 120px;
   margin: 20px 20px 0px;
   padding: 4px;
-  border: 1px solid;
+  border: 2px solid;
+  border-radius: 4px;
   text-align: center;
   color: #ffa800;
   background: aliceblue;
-}
-.loginButton:focus {
-  outline: none;
-}
 
-.loginButton:hover {
-  color: coral;
-  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  
+  &:hover {
+    color: coral;
+    cursor: pointer;
+  }
 }
 

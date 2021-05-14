@@ -1,4 +1,3 @@
-
 const MAX_EXTENSION = 200
 const INITIAL_OPACITY = 1
 const OPACITY_DIFFERENCE = 0.1
@@ -29,6 +28,7 @@ const applyTouchClass = (element: HTMLElement) => {
 const handleTouchMove = (event: TouchEvent, element: HTMLElement) => {
   if (userIsScrolling(event)) {
     element.classList.remove('touched')
+    element.style.opacity = INITIAL_OPACITY.toString()
   } else {
     sliderEndPosition = event.touches[0].pageX
     if (needOpacityIncrement()) {

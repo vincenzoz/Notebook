@@ -28,21 +28,19 @@ function Login() {
       })
   }
   return (
-    <div className="login-form centered">
-      <form className="login-form centered" onSubmit={(e) => { e.preventDefault(); doLogin() }}>
-        <input id="username" placeholder="username" autoComplete="off" onChange={(e: React.FormEvent<HTMLInputElement>) => setUsername(e.currentTarget.value)} />
-        <input
-          id="password"
-          type="password"
-          placeholder="password"
-          autoComplete="off"
-          readOnly
-          onFocus={(e: React.FormEvent<HTMLInputElement>) => e.currentTarget.removeAttribute('readonly')}
-          onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
-        />
-        <button type="submit" className="loginButton">Login</button>
-      </form>
-    </div>
+    <form className="login-form centered" onSubmit={(e) => { e.preventDefault(); doLogin() }}>
+      <input id="username" placeholder="username" autoComplete="off" onChange={(e: React.FormEvent<HTMLInputElement>) => setUsername(e.currentTarget.value)} />
+      <input
+        id="password"
+        type="password"
+        placeholder="password"
+        autoComplete="off"
+        readOnly
+        onFocus={(e: React.FormEvent<HTMLInputElement>) => e.currentTarget.removeAttribute('readonly')}
+        onChange={(e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)}
+      />
+      <button type="submit" className="loginButton">Login</button>
+    </form>
   )
 }
 

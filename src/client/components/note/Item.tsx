@@ -64,17 +64,17 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
   function getItemClass() {
     const currentItem = state.notebook.notes
       .filter((i) => i.description === item.description)
-    return currentItem[0].isSelected ? 'selected' : ''
+    return currentItem[0].isSelected ? ' selected' : ''
   }
   function selectItem(item: Item) {
     dispatch(selectNote(item))
   }
   return (
-    <tr id={id} className={`note-item ${getItemClass()} item-row slider`} onClick={() => selectItem(item)}>
+    <tr id={id} className={`note-item ${getItemClass()}`} onClick={() => selectItem(item)}>
       <td>
-        <span className="bullet-point nostretch">⦿</span>
+        <span className="bullet-point">⦿</span>
       </td>
-      <td>
+      <td className="item-description-col">
         <div className="item-description">
           {item.description}
         </div>
