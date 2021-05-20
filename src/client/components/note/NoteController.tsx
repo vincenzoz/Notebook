@@ -69,7 +69,7 @@ const NoteController = () => {
       <div className="bar-container">
         <div className="bar-elem">
           <button
-            className="btn btn-success btn-success btn-circle btn-xl"
+            className="button save circle"
             onClick={storeNotes}
             disabled={isNodeListEmpty()}
           >
@@ -77,7 +77,7 @@ const NoteController = () => {
           </button>
         </div>
         <div className="bar-elem">
-          <button className="btn btn-success btn-danger btn-circle btn-xl" onClick={deleteNotes} disabled={isNodeListEmpty()}>
+          <button className="button delete circle" onClick={deleteNotes} disabled={isNodeListEmpty()}>
             <FontAwesomeIcon icon={['far', 'trash-alt']} />
           </button>
         </div>
@@ -91,7 +91,7 @@ const NoteController = () => {
           />
         </div>
         <div className="bar-elem">
-          <button onClick={addNote} className="btn btn-primary btn-circle btn-xl" disabled={note.description === ''}>
+          <button onClick={addNote} className="button add circle" disabled={note.description === ''}>
             <FontAwesomeIcon icon={['fas', 'plus']} />
           </button>
         </div>

@@ -1,3 +1,46 @@
+@import './../../public/common.scss';
+
+$selectedOutline:  #ffd951;
+
+.button {
+  border: 0px;
+  outline: none;
+  color: white;
+  box-shadow: 3px 4px 3px #c6bcd3;
+  
+  &.circle {
+    width: 40px;
+    height: 40px;
+    padding: 4px 10px;
+    border-radius: 35px;
+    font-size: 22px;
+    line-height: 1.33;
+  }
+
+  &.save {
+    background-color: #98ddca;
+  }
+  &.delete {
+    background-color: $selectedText;  
+  }
+  &.add {
+    background-color: #6bc6e2;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn-danger {
+  background-color: $selectedText;
+  border-color: $selectedText;
+}
+.btn-primary {
+  background-color: $noteColor;
+  border-color: $noteColor;
+}
+
 .bar-container {
   display: flex;
   align-items: center;
@@ -24,14 +67,7 @@
       outline: none;
     }
 
-    .btn-circle.btn-xl {
-      width: 40px;
-      height: 40px;
-      padding: 4px 10px;
-      border-radius: 35px;
-      font-size: 22px;
-      line-height: 1.33;
-    }
+    
   }
 
   .full {
@@ -40,17 +76,22 @@
 }
 
 .item-list-table {
+  padding: 0px 10px;
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0px 6px;
 
   .note-item {
-    color: #c35500;
-    vertical-align: top;
-    height: 36px;
+    color: $noteColor;
+    vertical-align: center;
+    height: 50px;
     overflow-wrap: anywhere;
     font-family: monospace;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     user-select: none;
+    // outline: 2px solid $selectedOutline;
+    // outline-offset: -2px;
 
     :first-child {
       width: 1px;
@@ -62,18 +103,28 @@
     }
 
     &.selected {
-      background-color: #ff7070;
-      outline: 2px solid #ffd951;
-      outline-offset: -2px;
+      color: $selectedText;
+      background-color: $selectedBackground;
+      // outline: 2px solid $selectedOutline;
+      // outline-offset: -2px;
+
+      .item-first-col {
+        background-color: $noteColor;
+      }
     }
 
     .bullet-point {
-      font-size: 14px;
-      margin: 4px;
+      margin: 0px;
+      font-size: 18px;
+    }
+    .item-first-col {
+      background-color: $noteColor;
+      padding-left: 12px;
     }
     
     .item-description-col {
-      padding-top: 3px;
+      padding: 2px 5px;
+
     }
 
     .item-description {

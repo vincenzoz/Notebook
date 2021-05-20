@@ -1,38 +1,44 @@
+@import './../../public/common.scss';
+
+$color1: #ffa800;
+$color2: coral;
+$bkg_color: #fff2b9;
+
 .login-form {
   text-align: center;
   width: 20em;
   padding: 25px 35px;
-  box-shadow: 5px 5px 8px coral;
+  box-shadow: 5px 5px 8px $color2;
   border-radius: 4px;
-  background-color: #fff2b9;
+  background-color: $bkg_color;
 
   input {
     font-size: 30px;
     height: 55px;
-    color: coral;
+    color: $color2;
     background: none;
     outline: none;
     padding-left: 10px;
     padding-right: 10px;
     border: 0px;
-    border-bottom: 2px solid #ffa800;
+    border-bottom: 2px solid $color1;
     width: 100%;
     font-family: monospace;
     
     &:focus {
-      border-bottom: 2px solid coral;
+      border-bottom: 2px solid $color2;
   
       &::placeholder {
-        color: coral
+        color: $color2
     }
   }
 
     &:not(:placeholder-shown) {
-      border-bottom: 2px solid coral;
+      border-bottom: 2px solid $color2;
     }
   }
   ::placeholder {
-    color: #ffa800
+    color: $color1
   }
 }
   
@@ -44,7 +50,7 @@
   border: 2px solid;
   border-radius: 4px;
   text-align: center;
-  color: #ffa800;
+  color: $color1;
   background: aliceblue;
 
   &:focus {
@@ -52,7 +58,7 @@
   }
   
   &:hover {
-    color: coral;
+    color: $color2;
     cursor: pointer;
   }
 }

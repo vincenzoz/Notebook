@@ -71,9 +71,7 @@ const ItemComponent = ({ item, id }: ItemComponentProps) => {
   }
   return (
     <tr id={id} className={`note-item ${getItemClass()}`} onClick={() => selectItem(item)}>
-      <td>
-        <span className="bullet-point">⦿</span>
-      </td>
+      <td className="item-first-col" />
       <td className="item-description-col">
         <div className="item-description">
           {item.description}
