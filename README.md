@@ -2,11 +2,21 @@
 
 ## Quick start
 
-Note: you need to configure a mongdb locally (e.g. docker container) or remotely (e.g mongo ATLAS)
+Notes:
 
-The quickest way to run the app locally is to performs the following steps:
+```text
+- Configure a mongdb locally (e.g. docker container) or remotely (e.g mongo ATLAS)
 
-Set the MONGO_DB_URL environment variable on your system pointing to the configured mongodb
+- Set the MONGO_DB_URL environment variable on your system pointing to the configured mongodb
+```
+
+To launch the application locally you can use:
+
+```text
+./launcher.sh
+```
+
+Another way to launch the app locally is to performs the following steps:
 
 ```text
 npm install             Download the project dependencies
